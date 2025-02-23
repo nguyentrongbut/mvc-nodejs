@@ -136,9 +136,10 @@ module.exports.createPost = async (req, res) => {
         req.body.position = parseInt(req.body.position)
     }
 
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
+    // upload local
+    // if (req.file) {
+    //     req.body.thumbnail = `/uploads/${req.file.filename}`
+    // }
 
     const product = new Product(req.body);
 
@@ -176,9 +177,10 @@ module.exports.editPatch = async (req, res) => {
     req.body.stock = parseInt(req.body.stock)
     req.body.position = parseInt(req.body.position)
 
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
+    // upload local
+    // if (req.file) {
+    //     req.body.thumbnail = `/uploads/${req.file.filename}`
+    // }
 
     try {
         await Product.updateOne({ _id: id }, req.body);
