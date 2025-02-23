@@ -1,0 +1,21 @@
+mixin pagination(pagination)
+    nav
+        ul(class="pagination")
+            if pagination.currentPage > 1
+                li(class="page-item")
+                    button(
+                        class="page-link"
+                        button-pagination=pagination.currentPage - 1
+                    ) Trang trước
+            each i in Array(pagination.totalPage).fill().map((_, idx) => idx + 1)
+                li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
+                    button(
+                        class="page-link"
+                        button-pagination=i
+                    ) #{i}
+            if pagination.totalPage > pagination.currentPage
+                li(class="page-item")
+                    button(
+                        class="page-link"
+                        button-pagination=pagination.currentPage + 1
+                    ) Kế tiếp
