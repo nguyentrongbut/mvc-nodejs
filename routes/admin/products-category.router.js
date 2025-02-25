@@ -11,11 +11,9 @@ const upload = multer()
 
 const router = express.Router();
 
-const controller = require('../../controllers/admin/product.controller');
-
-const validate = require("../../validates/admin/product.validate")
-
-const uploadCloud = require("../../middlewares/admin/uploadCloud.middlewares")
+const controller = require('../../controllers/admin/product-category.controller');
+const uploadCloud = require("../../middlewares/admin/uploadCloud.middlewares");
+const validate = require("../../validates/admin/product-category.validate");
 
 router.get('/', controller.index)
 
