@@ -153,9 +153,14 @@ module.exports.edit = async (req, res) => {
 
         const product = await ProductCategory.findOne(find);
 
+        const records = await ProductCategory.find({deleted: false})
+
+        const newRecords = createTreeHelper.tree(records)
+
         res.render("admin/pages/products-category/edit", {
             pageTitle: "Chỉnh sửa sản phẩm",
             product: product,
+            records: newRecords,
         });
     } catch (error) {
         res.redirect(`${prefixAdmin}/products-category`);
@@ -166,9 +171,6 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
 
-    req.body.price = parseInt(req.body.price)
-    req.body.discountPercentage = parseInt(req.body.discountPercentage)
-    req.body.stock = parseInt(req.body.stock)
     req.body.position = parseInt(req.body.position)
 
     // upload local

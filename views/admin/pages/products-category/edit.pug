@@ -1,16 +1,15 @@
 extends ../../layout/default
 include ../../mixins/alert
+include ../../mixins/select-tree
 
 block main
-    +alert-error(5000)
-    +alert-success(5000)
-
-
     h1(class="mb-4")= pageTitle
+
+    +alert-success(5000)
+    +alert-error(5000)
 
     form(
         action=`${prefixAdmin}/products-category/edit/${product.id}?_method=PATCH`
-        id="form-edit-product"
         method="POST"
         enctype="multipart/form-data"
     )
@@ -21,9 +20,19 @@ block main
                 class="form-control"
                 id="title"
                 name="title"
-                value=product.title
                 required
+                value=product.title
             )
+        div(class="form-group")
+            label(for="parent_id") Danh mục cha
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                )
+                    option(value="") -- Chọn danh mục cha --
+                    if(records)
+                        +select-tree(records,1, product.parent_id)
         div(class="form-group")
             label(for="desc") Mô tả
             textarea(
@@ -36,7 +45,6 @@ block main
             class="form-group"
             upload-image
         )
-        div(class="form-group")
             label(for="thumbnail") Ảnh
             input(
                 type="file"
@@ -48,8 +56,8 @@ block main
             )
             img(
                 src=product.thumbnail
-                upload-image-preview
                 class="image-preview"
+                upload-image-preview
             )
         div(class="form-group")
             label(for="position") Vị trí
@@ -87,5 +95,3 @@ block main
                 type="submit"
                 class="btn btn-primary"
             ) Cập nhật
-
-    script(src="/admin/js/product.js")
