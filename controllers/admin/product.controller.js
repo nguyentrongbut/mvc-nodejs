@@ -128,7 +128,7 @@ module.exports.deleteItem = async (req, res) => {
     res.redirect("back");
 }
 
-// [GET] /admin/products/create
+// [GET] /admin/products/create.pug
 module.exports.create = async (req, res) => {
     let find = {
         deleted: false,
@@ -137,13 +137,13 @@ module.exports.create = async (req, res) => {
     const category = await ProductCategory.find(find);
 
     const newCategory = createTreeHelper.tree(category);
-    res.render("admin/pages/products/create", {
+    res.render("admin/pages/products/create.pug", {
         pageTitle: "Thêm mới sản phẩm",
         category: newCategory,
     });
 }
 
-// [POST] /admin/products/create
+// [POST] /admin/products/create.pug
 module.exports.createPost = async (req, res) => {
 
     req.body.price = parseInt(req.body.price)

@@ -16,15 +16,15 @@ module.exports.index = async (req, res) => {
     })
 }
 
-// [GET] /admin/roles/create
+// [GET] /admin/roles/create.pug
 module.exports.create = async (req, res) => {
 
-    res.render('admin/pages/roles/create', {
+    res.render('admin/pages/roles/create.pug', {
         pageTitle: "Thêm mới nhóm quyền"
     })
 }
 
-// [POST] /admin/roles/create
+// [POST] /admin/roles/create.pug
 module.exports.createPost = async (req, res) => {
 
     const record = new Role(req.body)

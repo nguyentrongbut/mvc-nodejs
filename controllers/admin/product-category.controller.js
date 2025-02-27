@@ -110,7 +110,7 @@ module.exports.deleteItem = async (req, res) => {
     res.redirect("back")
 }
 
-// [GET] /admin/products-category/create
+// [GET] /admin/products-category/create.pug
 module.exports.create = async (req, res) => {
     let find = {
         deleted: false,
@@ -120,13 +120,13 @@ module.exports.create = async (req, res) => {
 
     const newRecords = createTreeHelper.tree(records);
 
-    res.render('admin/pages/products-category/create', {
+    res.render('admin/pages/products-category/create.pug', {
         pageTitle: "Tạo danh mục sản phẩm",
         records: newRecords,
     })
 }
 
-// [POST] /admin/products-category/create
+// [POST] /admin/products-category/create.pug
 module.exports.createPost = async (req, res) => {
     if (req.body.position == "") {
         const countProducts = await ProductCategory.countDocuments({ deleted: false });
