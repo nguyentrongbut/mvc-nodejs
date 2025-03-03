@@ -1,5 +1,7 @@
 const Product = require("../../models/product.model")
 const ProductCategory = require("../../models/product-category.model")
+const Account = require("../../models/account.model")
+
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
@@ -61,6 +63,16 @@ module.exports.index = async (req, res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
+    for (const product of products) {
+        const user = await Account.findOne({
+            _id: product.createdBy.account_id,
+        })
+
+        if (user) {
+            product.accountFullName = user.fullName;
+        }
+    }
+
     res.render('admin/pages/products/index', {
         pageTitle: "Danh sách sản phẩm",
         products: products,
@@ -97,7 +109,12 @@ module.exports.changeMulti = async (req, res) => {
             req.flash('success', `Cập nhật trạng thái thành công ${ids.length} sản phẩm`);
             break;
         case "delete-all":
-            await Product.updateMany({ _id: ids }, { deleted: "true", deletedAt: new Date() });
+            await Product.updateMany({ _id: ids }, {
+                deleted: "true",
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date(),
+                } });
             req.flash('success', `Đã xóa thành công ${ids.length} sản phẩm`);
             break;
         case "change-position":
@@ -121,7 +138,13 @@ module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
 
     // await Product.deleteOne({ _id: id });
-    await Product.updateOne({ _id: id }, {deleted: true, deletedAt: new Date() });
+    await Product.updateOne({ _id: id }, {
+        deleted: true,
+        deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date(),
+        }
+    });
 
     req.flash('success', `Đã xóa thành công sản phẩm`);
 
@@ -161,6 +184,10 @@ module.exports.createPost = async (req, res) => {
     // if (req.file) {
     //     req.body.thumbnail = `/uploads/${req.file.filename}`
     // }
+
+    req.body.createdBy = {
+        account_id: res.locals.user.id
+    }
 
     const product = new Product(req.body);
 

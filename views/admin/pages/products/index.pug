@@ -5,6 +5,7 @@ include ../../mixins/pagination
 include ../../mixins/form-change-multi
 include ../../mixins/alert
 include ../../mixins/sort
+include ../../mixins/moment
 
 block main
     if (role.permissions.includes("products_view"))
@@ -48,6 +49,7 @@ block main
                                 th Giá
                                 th Vị trí
                                 th Trạng thái
+                                th Nguoi tao
                                 th Hành động
                         tbody
                             each product, index in products
@@ -67,6 +69,9 @@ block main
                                             min="1"
                                             name="position"
                                         )
+                                    td
+                                        p #{product.accountFullName}
+                                        +formatDate(product.createdBy.createdAt)
                                     td
                                         if (role.permissions.includes("products_edit"))
                                             if(product.status == "active")
