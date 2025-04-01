@@ -1,0 +1,9 @@
+extends ../../layout/default
+include ../../mixins/product-layout
+
+block main
+    h1 #{pageTitle}
+
+    h1 Kết quả tìm kiếm #{keyword}
+
+    +product-grid(products)

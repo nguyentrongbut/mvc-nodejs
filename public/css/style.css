@@ -27,7 +27,7 @@
 .header {
     max-height: var(--header-height);
 
-    position: fixed;
+    position: sticky;
     inset: 0;
     padding: 10px 0;
     box-shadow: 0 2px 28px 0 rgb(0 0 0 / 6%);
@@ -68,6 +68,7 @@
 
 /* Footer */
 .footer {
+    position: relative;
     background: #333;
     text-align: center;
     color: white;
@@ -76,3 +77,154 @@
 
 /* End Footer */
 
+/* sub-menu */
+.sub-menu {
+    position: relative;
+    z-index: 9999;
+}
+
+.sub-menu ul {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #eae9e9;
+    min-width: 100px;
+    display: none;
+}
+
+.sub-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sub-menu:hover > ul {
+    display: block;
+}
+
+.sub-menu ul li {
+    position: relative;
+}
+
+.sub-menu ul li ul {
+    right: 100%;
+    top: 0;
+}
+
+.sub-menu ul li:hover > ul {
+    display: block;
+}
+
+/* End sub-menu */
+
+.inner-featured {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: green;
+    color: white;
+    padding: 3px 6px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+/* Show Alert */
+[show-alert] {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 9999;
+}
+
+[show-alert].alert-hidden {
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes alert-hidden {
+    from {
+        right: 15px;
+    }
+    to {
+        right: -100px;
+        display: none;
+    }
+}
+
+[show-alert] [close-alert] {
+    background: #ffffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+}
+/* End Show Alert */
+
+.chat {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.chat .inner-name {
+    font-weight: bold;
+}
+
+.chat .inner-incoming .inner-content {
+    padding: 10px;
+    background: rgba(221, 221, 221, 0.88);
+    border-radius: 10px;
+    width: 30%;
+    margin-top: 10px;
+}
+
+.chat .inner-outgoing {
+    display: flex;
+}
+
+.chat .inner-outgoing .inner-content {
+    margin-top: 10px;
+    padding: 10px;
+    background: #fe5db3;
+    border-radius: 10px;
+    width: 30%;
+    margin-left: auto;
+}
+
+.chat .inner-foot {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat .inner-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.chat .inner-form input {
+    flex: 1;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.chat .inner-form button {
+    border-radius: 15px;
+    border: 1px solid #fe5da3;
+    background: #fe5da3;
+    color: #fff;
+    height: 32px;
+    padding: 0 10px;
+    cursor: pointer;
+}

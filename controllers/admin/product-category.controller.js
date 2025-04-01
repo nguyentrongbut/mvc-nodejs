@@ -45,6 +45,7 @@ module.exports.index = async (req, res) => {
 
     const newRecords = createTreeHelper.tree(records)
 
+
     res.render('admin/pages/products-category/index', {
         pageTitle: "Danh mục sản phẩm",
         filterStatus: filterStatus,
@@ -126,20 +127,27 @@ module.exports.create = async (req, res) => {
     })
 }
 
-// [POST] /admin/products-category/create.pug
+// [POST] /admin/products-category/create
 module.exports.createPost = async (req, res) => {
-    if (req.body.position == "") {
-        const countProducts = await ProductCategory.countDocuments({ deleted: false });
-        req.body.position = countProducts + 1;
+    const permissions = res.locals.role.permissions;
+
+    if (permissions.includes("products-category_create")) {
+        if (req.body.position == "") {
+            const countProducts = await ProductCategory.countDocuments({ deleted: false });
+            req.body.position = countProducts + 1;
+        } else {
+            req.body.position = parseInt(req.body.position)
+        }
+
+        const record = new ProductCategory(req.body);
+
+        await record.save();
+
+        res.redirect(`${prefixAdmin}/products-category`);
     } else {
-        req.body.position = parseInt(req.body.position)
+        return;
     }
 
-    const record = new ProductCategory(req.body);
-
-    await record.save();
-
-    res.redirect(`${prefixAdmin}/products-category`);
 }
 
 // [GET] /admin/products-category/edit/:id

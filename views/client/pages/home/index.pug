@@ -1,4 +1,19 @@
 extends ../../layout/default
+include ../../mixins/product-layout
 
 block main
     h1 Trang chủ
+    .container.my-3
+        .row
+            .col-12
+                .box-head
+                    h2.inner-title Sản phẩm nổi bật
+        .row
+            +product-grid(productFeatured)
+    .container.my-3
+        .row
+            .col-12
+                .box-head
+                    h2.inner-title Sản phẩm mới
+        .row
+            +product-grid(productsNew)

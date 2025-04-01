@@ -1,0 +1,15 @@
+mixin product-item(product)
+    .card
+        img.card-img-top(
+            src=product.thumbnail ,
+            alt=product.title
+        )
+        if(product.featured == "1")
+            .inner-featured Nổi bật
+        .card-body
+            a(href=`/products/detail/${product.slug}`)
+                h3.card-title #{product.title}
+        ul.list-group.list-group-flush
+            li.list-group-item New Price #{product.priceNew}$
+            li.list-group-item Old Price #{product.price}$
+            li.list-group-item Discount -#{product.discountPercentage}%

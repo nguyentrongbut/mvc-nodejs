@@ -14,6 +14,9 @@ const flash = require('express-flash')
 
 const moment = require('moment')
 
+// socket io
+const http = require('http')
+const { Server } = require("socket.io");
 
 require("dotenv").config()
 
@@ -37,6 +40,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
+// socket io
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+    console.log("a user connected", socket.id);
+})
+
 // Flash
 app.use(cookieParser(process.env.COOKIE_PARSER));
 app.use(session({ cookie: { maxAge: 60000 }}));
@@ -57,7 +68,12 @@ app.use(express.static(`${__dirname}/public`))
 routeAdmin(app)
 route(app)
 
+app.get("*", (req, res) => {
+    res.render('client/pages/errors/404', {
+        pageTitle: 'Page not found'
+    })
+})
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
