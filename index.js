@@ -43,10 +43,7 @@ app.set('view engine', 'pug')
 // socket io
 const server = http.createServer(app);
 const io = new Server(server);
-
-io.on('connection', (socket) => {
-    console.log("a user connected", socket.id);
-})
+global._io = io;
 
 // Flash
 app.use(cookieParser(process.env.COOKIE_PARSER));

@@ -5,6 +5,7 @@ const cartRouters = require('./cart.route')
 const checkoutRouters = require('./checkout.route')
 const userRouters = require('./user.route')
 const chatRouters = require('./chat.route')
+const authMiddlewares = require('../../middlewares/client/auth.middlewares')
 const categoryMiddlewares = require('../../middlewares/client/category.middlewares')
 const cartMiddlewares = require('../../middlewares/client/cart.middlewares')
 const userMiddlewares = require('../../middlewares/client/user.middlewares')
@@ -31,5 +32,7 @@ module.exports = (app) => {
 
     app.use('/user', userRouters)
 
-    app.use('/chat', chatRouters)
+    app.use('/chat',
+        authMiddlewares.requireAuth,
+        chatRouters)
 }
