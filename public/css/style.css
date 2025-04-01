@@ -173,6 +173,11 @@
     padding: 20px;
 }
 
+.chat .inner-body {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
 .chat .inner-name {
     font-weight: bold;
 }
