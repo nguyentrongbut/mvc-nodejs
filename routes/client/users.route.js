@@ -7,5 +7,7 @@ router.get("/not-friend", controllers.notFriend)
 
 router.get("/request", controllers.request)
 
+router.get("/accept", controllers.accept)
+
 
 module.exports = router;
