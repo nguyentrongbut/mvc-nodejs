@@ -14,7 +14,7 @@ const flash = require('express-flash')
 
 const moment = require('moment')
 
-// socket io
+// sockets io
 const http = require('http')
 const { Server } = require("socket.io");
 
@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
-// socket io
+// sockets io
 const server = http.createServer(app);
 const io = new Server(server);
 global._io = io;
